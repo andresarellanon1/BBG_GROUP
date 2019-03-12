@@ -1,0 +1,63 @@
+<odoo>
+    <data>
+
+        <record id="print_product_labels_form" model="ir.ui.view">
+            <field name="name">print_product_labels_form</field>
+            <field name="model">print.product.labels</field>
+            <field name="arch" type="xml">
+                <form string="Print Product Labels">
+                    <sheet>
+                        <group colspan="4" >
+                            <field name="copies" />
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" 
+                            name="action_print_label" 
+                            string="Print Label"
+                            class="oe_highlight"
+                            icon="fa-cogs" />
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+       <act_window
+            name="Print Product Label"
+            id="act_product_template_barcode_copies"
+            multi="True"
+            key2="client_action_multi"
+            res_model="print.product.labels"
+            src_model="product.template"
+            view_mode="form"
+            target="new"
+            view_type="form"
+            context="{}"/>
+
+       <act_window
+            name="Print Product Label"
+            id="act_product_product_barcode_copies"
+            multi="True"
+            key2="client_action_multi"
+            res_model="print.product.labels"
+            src_model="product.product"
+            view_mode="form"
+            target="new"
+            view_type="form"
+            context="{}"/>
+
+
+
+        <report
+            id="report_product_template_barcode_copies"
+            string="Product Barcode (PDF)"
+            model="print.product.labels"
+            report_type="qweb-pdf"
+            name="print_product_labels.report_producttemplatebarcodecopies"
+            file="print_product_labels.report_producttemplatebarcodecopies"
+            print_report_name="'Products barcode - %s' % (object.name)"
+        />
+
+    </data>
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_producttemplatebarcodecopies">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="template">
+                    <t t-set="copies" t-value="int(template.copies)"/>
+                    <t t-foreach="range(copies)" t-as="copie">
+
+                        <t t-foreach="data.get('product_ids', []) " t-as="product">
+                            <t t-if="data.get('model', 'product.template') == 'product.template' ">
+                                <t t-foreach="product.product_variant_ids" t-as="variant">
+                                    <t t-call="product.report_simple_barcode">
+                                        <t t-set="product" t-value="variant"/>
+                                    </t>
+                                </t>
+                            </t>
+                            <t t-if="data.get('model', 'product.template') == 'product.product' ">
+                                <t t-call="product.report_simple_barcode">
+                                    <t t-set="product" t-value="product"/>
+                                </t>
+                            </t>
+                        </t>
+                        <p style="page-break-before:always;"></p>
+                    </t>
+                </t>
+            </div>
+        </t>
+    </template>
+
+</odoo>
